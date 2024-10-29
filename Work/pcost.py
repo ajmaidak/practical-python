@@ -15,12 +15,12 @@ def portfolio_cost(filename):
     f = open(filename, 'rt')
     rows = csv.reader(f)
     headers = next(rows)
-    for r in rows:
+    for i, r in enumerate(rows):
         name, shares, price = r
         try:
             total_cost += int(shares) * float(price)
         except ValueError:
-            print("couldn't parse line:", r, "skipping")
+            print(f"Row {i}: Couldn't convert: {r} skipping")
 
     return total_cost
 
