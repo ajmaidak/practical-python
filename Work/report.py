@@ -49,7 +49,7 @@ def gain_loss(portfolio, prices):
         current_value += holding['shares'] * prices[holding["name"]]
     print("current Value is", current_value, "prior value is", prior_value, "the gain/loss is", current_value - prior_value)
 
-def make_report(portfolio,prices):
+def report_data(portfolio,prices):
     report = []
     for holding in portfolio:
         current_price = prices[holding['name']]
@@ -57,16 +57,16 @@ def make_report(portfolio,prices):
         report.append((name, shares, current_price, change))
     return report
 
+def print_report(report_data):
+    print('%10s %10s %10s %10s' % ('Name', 'Shares', 'Price', 'Change'))
+    print('---------- ---------- ---------- -----------')
+    for r in report_data:
+        print('%10s %10d %10.2f %10.2f' % r)
+
+
 if len(sys.argv) == 2:
     filename = sys.argv[1]
 else:
     filename = 'Data/portfolio.csv'
 
-portfolio = read_portfolio(filename)
-prices = read_prices('Data/prices.csv')
-report = make_report(portfolio, prices)
-
-print('%10s %10s %10s %10s' % ('Name', 'Shares', 'Price', 'Change'))
-print('---------- ---------- ---------- -----------')
-for r in report:
-    print('%10s %10d %10.2f %10.2f' % r)
+print_report(report_data(read_portfolio(filename),read_prices('Data/prices.csv')))
