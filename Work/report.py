@@ -63,10 +63,13 @@ def print_report(report_data):
     for r in report_data:
         print('%10s %10d %10.2f %10.2f' % r)
 
+def portfolio_report(portfolio_file, prices_file):
+    data = report_data(read_portfolio(portfolio_file), read_prices(prices_file))
+    print_report(data)
 
 if len(sys.argv) == 2:
     filename = sys.argv[1]
 else:
     filename = 'Data/portfolio.csv'
 
-print_report(report_data(read_portfolio(filename),read_prices('Data/prices.csv')))
+portfolio_report('Data/portfolio.csv', 'Data/prices.csv')
